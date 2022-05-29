@@ -16,17 +16,14 @@
 #include <llvm/Support/MemoryBuffer.h>
 #include <llvm/Support/WithColor.h>
 
-using namespace llvm::cl;
+using namespace llvm;
 
 namespace xeon {
     namespace FileSystem = std::filesystem;
 
-    using ConsoleLog = llvm::WithColor;
-
-    template<typename T>
-    using ErrorOr = llvm::ErrorOr<T>;
-
     using MemoryBuffer = llvm::MemoryBuffer;
+
+    using ConsoleLog = llvm::WithColor;
 
     using Path = FileSystem::path;
 
