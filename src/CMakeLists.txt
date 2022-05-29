@@ -5,11 +5,11 @@ project(XeonCompiler
 
 set(SOURCE_FILES
         common.hpp
+        lexer.cpp
+        lexer.hpp
+        main.cpp
         token.hpp
         token_type.hpp
-        main.cpp
-        lexer.hpp
-        lexer.cpp
         )
 
 # include current source and build directories in include path
