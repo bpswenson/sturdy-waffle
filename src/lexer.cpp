@@ -9,6 +9,11 @@ namespace xeon {
 
     }
 
+    void Lexer::init_keyword_map() {
+        m_keywords["func"] = TokenType::function;
+
+    }
+
     TokenType Lexer::get_next_token() {
 
     }

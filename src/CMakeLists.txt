@@ -5,8 +5,6 @@ project(XeonCompiler
 
 set(SOURCE_FILES
         common.hpp
-        file.cpp
-        file.hpp
         lexer.cpp
         lexer.hpp
         main.cpp

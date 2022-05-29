@@ -15,6 +15,7 @@ namespace xeon {
 
 
     private:
+        void init_keyword_map();
         HashMap<String, TokenType> m_keywords;
         TokenType m_previous_type = TokenType::invalid;
         uint32 m_previous_id = 0;
