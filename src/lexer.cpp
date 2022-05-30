@@ -18,7 +18,7 @@ namespace xeon {
 
     }
 
-    TokenType Lexer::get_next_token() {
+    Token Lexer::get_next_token() {
 
     }
 

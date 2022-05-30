@@ -13,9 +13,9 @@ namespace xeon {
         Token(const Location& location, TokenType type, const String& text) :
             m_location(location), m_type(type), m_text(text) {}
 
-        Location get_location() const { return m_location; }
-        TokenType get_type() const { return m_type; }
-        String get_text() const { return m_text; }
+        [[nodiscard]] Location get_location() const { return m_location; }
+        [[nodiscard]] TokenType get_type() const { return m_type; }
+        [[nodiscard]] String get_text() const { return m_text; }
 
     private:
         Location m_location;

@@ -5,6 +5,7 @@
 #pragma once
 
 #include <token_type.hpp>
+#include <token.hpp>
 
 namespace xeon {
 
@@ -12,7 +13,7 @@ namespace xeon {
     class Lexer {
     public:
         explicit Lexer(const MemoryBuffer& input_file);
-        TokenType get_next_token();
+        Token get_next_token();
 
 
     private:
