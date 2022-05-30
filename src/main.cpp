@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include <common.hpp>
+#include <version.hpp>
 
 #include <llvm/Support/Host.h>
 #include <llvm/Support/CommandLine.h>
@@ -20,7 +21,7 @@ cl::opt<String> output_filename("o", cl::desc("Output File Name"), cl::value_des
 void output_version(raw_ostream &os) {
     StringView cpu = llvm::sys::getHostCPUName();
     os << program_name << " " << "0.0.1" << "\n";
-    os << " Host CPU: " << cpu << "\n";
+    os << " Host CPU: " << xeon::get_xeon_full_version() << "\n";
     os.flush();
 }
 

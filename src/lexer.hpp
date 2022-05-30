@@ -8,6 +8,7 @@
 
 namespace xeon {
 
+    // Provides interface that turns text buffer into stream of tokens.
     class Lexer {
     public:
         Lexer();
@@ -16,6 +17,9 @@ namespace xeon {
 
     private:
         void init_keyword_map();
+        const char* m_buffer_start;
+        const char* m_buffer_end;
+
         HashMap<String, TokenType> m_keywords;
         TokenType m_previous_type = TokenType::invalid;
         uint32 m_previous_id = 0;
