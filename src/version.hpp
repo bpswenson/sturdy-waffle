@@ -6,7 +6,5 @@
 #include <version.conf>
 
 namespace xeon {
-    String get_xeon_full_version() {
-        return String(XEON_VERSION_STRING);
-    }
+    String get_xeon_full_version();
 }
