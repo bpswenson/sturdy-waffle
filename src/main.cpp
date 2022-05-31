@@ -37,5 +37,7 @@ int main(int argc, char** argv) {
 
     Lexer lex = Lexer(source_manager);
 
+    Token tok = lex.get_next_token();
+
     return 0;
 }

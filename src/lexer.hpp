@@ -10,6 +10,9 @@
 namespace xeon {
 
     // Provides interface that turns text buffer into stream of tokens.
+
+    // TODO:  Make sure there's a '\n' at the end of the file
+    //        Not going to be looking for eof in the middle of a line
     class Lexer {
     public:
         explicit Lexer(sptr<SourceManager>& sm);
@@ -47,10 +50,7 @@ namespace xeon {
             return is_identifier_start(ch) || is_digit(ch);
         }
 
-        Token parse_identifier();
-        Token parse_number();
-        Token parse_string();
-        Token parse_word();
+        Pair<bool, Token> match_regex(const String& regex, TokenType type, StringView& segment);
 
         sptr<SourceManager> m_source_manager;
         HashMap<String, TokenType> m_keywords;

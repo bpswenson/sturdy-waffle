@@ -22,6 +22,9 @@ namespace xeon {
 
     namespace FileSystem = std::filesystem;
 
+    template<typename LHS, typename RHS>
+    using Pair = std::pair<LHS, RHS>;
+
     using SourceManager = llvm::SourceMgr;
 
     using SourceLocation = llvm::SMLoc;

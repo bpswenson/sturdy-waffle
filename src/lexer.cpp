@@ -2,6 +2,7 @@
 // Created by bswenson3 on 5/28/22.
 //
 #include <lexer.hpp>
+#include <regex>
 
 namespace xeon {
 
@@ -20,23 +21,21 @@ namespace xeon {
 
     }
 
-    Token Lexer::parse_identifier() {
-        assert(false || "Not implemented");
-        return Token {m_current_location, TokenType::invalid, 0};
-    }
+    Pair<bool, Token> Lexer::match_regex(const String& regex, TokenType type, StringView& segment) {
+        std::regex re(regex);
+        // ick temp string since regex doesn't seem to work with string views
+        // https://en.cppreference.com/w/cpp/regex/regex_iterator
+        String s = {segment.begin(), segment.end()};
+        auto iterator = std::sregex_iterator(s.begin(), s.end(), re);
+        // if I found a match
+        if(iterator != std::sregex_iterator()) {
+            String context = static_cast<String>((*iterator).str());
 
-    Token Lexer::parse_number() {
-        assert(false || "Not implemented");
-        return Token {m_current_location, TokenType::invalid, 0};
-    }
-
-    Token Lexer::parse_string() {
-        assert(false || "Not implemented");
-        return Token {m_current_location, TokenType::invalid, 0};
-    }
-    Token Lexer::parse_word() {
-        assert(false || "Not implemented");
-        return Token {m_current_location, TokenType::invalid, 0};
+            return { true,  Token(m_current_location, type, context)};
+        }
+        else {
+            return { false, Token(m_current_location, TokenType::invalid, "")};
+        }
     }
 
     Token Lexer::get_next_token() {
@@ -46,21 +45,31 @@ namespace xeon {
         }
         // check for end of file
         if(!*m_current_location) {
-            return Token(m_current_location, TokenType::eof, 0);
+            return Token(m_current_location, TokenType::end_of_file, "");
         }
-        else if (is_digit(*m_current_location)) {
-            return parse_number();
-        }
-        else if (*m_current_location == '"' || *m_current_location == '\'') {
-            return parse_string();
-        }
-        else if (is_alpha(*m_current_location)) {
-            return parse_word();
-        }
-        // else if is_operator (could be one char '+' or two char '==')
-        //   return parse_operator();
 
-        return Token(m_current_location, TokenType::invalid, 0);
+        // find next whitespace character after this char
+        // again making the likely horrible assumption there's a '\n' prior to eof
+        auto end_segment = m_current_location + 1;
+        while(!is_whitespace(*end_segment)) {
+            end_segment++;
+        }
+
+        StringView segment = StringView(m_current_location, end_segment - m_current_location);
+
+        auto match_float = match_regex("^[0-9]+\\.[0-9]+", TokenType::float_literal, segment);
+
+        if(match_float.first) {
+            // woo that worked, add the length of the returned context to m_current_location and return the token
+        }
+
+        auto match_int = match_regex("^[0-9]+", TokenType::integer_literal, segment);
+
+        if(match_int.first) {
+            // woo that worked, add the length of the returned context to m_current_location and return the token
+        }
+
+        return Token(m_current_location, TokenType::invalid, "");
 
     }
 

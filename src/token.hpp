@@ -9,17 +9,17 @@ namespace xeon {
 
     class Token {
     public:
-        Token(const char* location, TokenType type, uint32 size) :
-            m_location(location), m_type(type), m_size(size) {}
+        Token(const char* location, TokenType type, const String& context) :
+            m_location(location), m_type(type), m_context(context) {}
 
         [[nodiscard]] SourceLocation get_location() const { return SourceLocation::getFromPointer(m_location); }
         [[nodiscard]] TokenType get_type() const { return m_type; }
-        [[nodiscard]] uint32 get_size() const { return m_size; }
+        [[nodiscard]] String get_context() const { return m_context; }
 
     private:
         const char* m_location;
         TokenType m_type = TokenType::invalid;
-        uint32 m_size;
+        String m_context;
     };
 
 }
