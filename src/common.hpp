@@ -15,11 +15,16 @@
 #include <filesystem>
 #include <llvm/Support/MemoryBuffer.h>
 #include <llvm/Support/WithColor.h>
-
-using namespace llvm;
+#include <llvm/Support/SourceMgr.h>
+#include <memory>
 
 namespace xeon {
+
     namespace FileSystem = std::filesystem;
+
+    using SourceManager = llvm::SourceMgr;
+
+    using SourceLocation = llvm::SMLoc;
 
     using MemoryBuffer = llvm::MemoryBuffer;
 
@@ -47,6 +52,7 @@ namespace xeon {
     template<typename TYPE>
     using Vector = std::vector<TYPE>;
 
-
+    template<typename T>
+    using sptr = std::shared_ptr<T>;
 
 }

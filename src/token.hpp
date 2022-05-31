@@ -4,24 +4,22 @@
 #pragma once
 
 #include <token_type.hpp>
-#include <location.hpp>
 
 namespace xeon {
 
     class Token {
     public:
-        Token(const Location& location, TokenType type, const String& text) :
-            m_location(location), m_type(type), m_text(text) {}
+        Token(const char* location, TokenType type, uint32 size) :
+            m_location(location), m_type(type), m_size(size) {}
 
-        [[nodiscard]] Location get_location() const { return m_location; }
+        [[nodiscard]] SourceLocation get_location() const { return SourceLocation::getFromPointer(m_location); }
         [[nodiscard]] TokenType get_type() const { return m_type; }
-        [[nodiscard]] String get_text() const { return m_text; }
+        [[nodiscard]] uint32 get_size() const { return m_size; }
 
     private:
-        Location m_location;
+        const char* m_location;
         TokenType m_type = TokenType::invalid;
-        String m_text;
-
+        uint32 m_size;
     };
 
 }

@@ -9,7 +9,7 @@
 namespace xeon {
     enum class TokenType {
         invalid,
-        function,
+        kw_function,
         lparen,
         rparen,
         lsquare,
@@ -21,5 +21,8 @@ namespace xeon {
         single_quote,
         double_quote,
         semicolon,
+        eof
     };
+
+
 }

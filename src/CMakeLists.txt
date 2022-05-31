@@ -8,7 +8,6 @@ set(SOURCE_FILES
         common.hpp
         lexer.cpp
         lexer.hpp
-        location.hpp
         main.cpp
         token.hpp
         token_type.hpp

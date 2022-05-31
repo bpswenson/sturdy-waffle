@@ -12,12 +12,12 @@ namespace xeon {
     // Provides interface that turns text buffer into stream of tokens.
     class Lexer {
     public:
-        explicit Lexer(const MemoryBuffer& input_file);
+        explicit Lexer(sptr<SourceManager>& sm);
         Token get_next_token();
-
 
     private:
         void init_keyword_map();
+
         inline static bool is_ascii(char ch) {
             return static_cast<uchar>(ch) <= 127;
         }
@@ -33,9 +33,13 @@ namespace xeon {
             return is_ascii(ch) && (ch >= '0' && ch <= '9');
         }
 
+        inline static bool is_alpha(char ch) {
+            return (ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z');
+        }
+
         // variable names can start with an alpha or underscore
         inline static bool is_identifier_start(char ch) {
-            return is_ascii(ch) && (ch == '_' || (ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z'));
+            return is_ascii(ch) && (ch == '_' || is_alpha(ch));
         }
 
         // after the first character can use numerics in variable names
@@ -43,16 +47,16 @@ namespace xeon {
             return is_identifier_start(ch) || is_digit(ch);
         }
 
+        Token parse_identifier();
+        Token parse_number();
+        Token parse_string();
+        Token parse_word();
 
-
-        const char* m_buffer_start;
-        const char* m_buffer_end;
-        const char* m_buffer_ptr;
-
-
+        sptr<SourceManager> m_source_manager;
         HashMap<String, TokenType> m_keywords;
         TokenType m_previous_type = TokenType::invalid;
-        uint32 m_previous_id = 0;
+        const char* m_current_location;
+        StringView m_current_buffer;
+        uint32 m_buffer_id;
     };
-
 }
