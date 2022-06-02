@@ -30,7 +30,6 @@ add_executable(xeon)
 target_sources(xeon PRIVATE ${SOURCE_FILES})
 target_include_directories(xeon PRIVATE ${CMAKE_BINARY_DIR})
 target_link_libraries(xeon PRIVATE
-        Boost::program_options
         llvm::core
         llvm::support
         )
