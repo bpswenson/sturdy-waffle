@@ -49,9 +49,9 @@ namespace xeon {
         }
 
         // find next whitespace character after this char
-        // again making the likely horrible assumption there's a '\n' prior to eof
+        // TODO:  Test lack of \n before EOF change
         auto end_segment = m_current_location + 1;
-        while(!is_whitespace(*end_segment)) {
+        while(*end_segment && !is_whitespace(*end_segment)) {
             end_segment++;
         }
 
