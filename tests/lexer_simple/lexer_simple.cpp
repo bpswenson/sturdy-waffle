@@ -24,3 +24,35 @@ TEST_CASE("Lexer: Simple Int", "[Lexer]") {
     REQUIRE(tok.get_context() == "53");
 
 }
+
+TEST_CASE("Lexer: Simple Float", "[Lexer]") {
+
+    std::string test_int = "53.11";
+
+    sptr<SourceManager> source_manager = std::make_shared<SourceManager>();
+
+    source_manager->AddNewSourceBuffer(MemoryBuffer::getMemBuffer(test_int, "testFloatBuffer"), SourceLocation());
+
+    Lexer lex = Lexer(source_manager);
+
+    Token tok = lex.get_next_token();
+
+    REQUIRE(tok.get_type() == TokenType::float_literal);
+    REQUIRE(tok.get_context() == "53.11");
+}
+
+TEST_CASE("Lexer: Simple String", "[Lexer]") {
+
+    std::string test_int = "\"FooManChu\"";
+
+    sptr<SourceManager> source_manager = std::make_shared<SourceManager>();
+
+    source_manager->AddNewSourceBuffer(MemoryBuffer::getMemBuffer(test_int, "testFloatBuffer"), SourceLocation());
+
+    Lexer lex = Lexer(source_manager);
+
+    Token tok = lex.get_next_token();
+
+    REQUIRE(tok.get_type() == TokenType::string_literal);
+    REQUIRE(tok.get_context() == "\"FooManChu\"");
+}
