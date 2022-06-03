@@ -50,7 +50,7 @@ namespace xeon {
             return is_identifier_start(ch) || is_digit(ch);
         }
 */
-        Pair<bool, Token> match_regex(const String& regex, TokenType type, StringView& segment);
+        Pair<bool, Token> match_regex(const String& regex, TokenType type);
 
         sptr<SourceManager> m_source_manager;
         HashMap<String, TokenType> m_keywords;
