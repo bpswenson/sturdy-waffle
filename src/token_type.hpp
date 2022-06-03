@@ -12,6 +12,8 @@ namespace xeon {
         kw_function,
         float_literal,
         integer_literal,
+        string_literal,
+        comment,
         lparen,
         rparen,
         lsquare,
