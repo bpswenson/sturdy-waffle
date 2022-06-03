@@ -64,6 +64,7 @@ namespace xeon {
         if(match_float.first) {
             // woo that worked, add the length of the returned context to m_current_location and return the token
             m_current_location += match_float.second.get_context().length();
+            return match_float.second;
         }
 
         // this will catch floats as well thus floats were checked first
@@ -72,16 +73,19 @@ namespace xeon {
         if(match_int.first) {
             // woo that worked, add the length of the returned context to m_current_location and return the token
             m_current_location += match_int.second.get_context().length();
+            return match_int.second;
         }
 
         auto match_string = match_regex("^\".*\"", TokenType::string_literal, segment);
         if(match_string.first) {
             m_current_location += match_string.second.get_context().length();
+            return match_string.second;
         }
 
         auto match_comment = match_regex(R"(/\*(.|[\r\n])*?\*/)", TokenType::comment, segment);
         if(match_comment.first) {
             m_current_location += match_comment.second.get_context().length();
+            return match_comment.second;
         }
 
         return Token(m_current_location, TokenType::invalid, "");

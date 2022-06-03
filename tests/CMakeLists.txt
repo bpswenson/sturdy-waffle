@@ -8,3 +8,4 @@ include(Catch)
 
 # smoke test
 add_subdirectory( silly_test )
+add_subdirectory( lexer_simple )

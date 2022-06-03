@@ -31,7 +31,7 @@ namespace xeon {
                                     ch == '\f' || ch == '\v'
                                     );
         }
-
+/*
         inline static bool is_digit(char ch) {
             return is_ascii(ch) && (ch >= '0' && ch <= '9');
         }
@@ -49,7 +49,7 @@ namespace xeon {
         inline static bool is_identifier_body(char ch) {
             return is_identifier_start(ch) || is_digit(ch);
         }
-
+*/
         Pair<bool, Token> match_regex(const String& regex, TokenType type, StringView& segment);
 
         sptr<SourceManager> m_source_manager;
