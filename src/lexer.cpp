@@ -24,8 +24,6 @@ namespace xeon {
 
     Pair<bool, Token> Lexer::match_regex(const String& regex, TokenType type) {
         std::regex re(regex);
-        // ick temp string since regex doesn't seem to work with string views
-        // https://en.cppreference.com/w/cpp/regex/regex_iterator
 
         auto iterator = std::cregex_iterator(m_current_location, m_current_buffer.end(), re);
         // if I found a match
@@ -48,15 +46,6 @@ namespace xeon {
         if(!*m_current_location) {
             return Token(m_current_location, TokenType::end_of_file, "");
         }
-
-        // find next whitespace character after this char
-        // TODO:  Test lack of \n before EOF change
-        //auto end_segment = m_current_location + 1;
-        //while(*end_segment && !is_whitespace(*end_segment)) {
-        //    end_segment++;
-        //}
-
-        //StringView segment = StringView(m_current_location, end_segment - m_current_location);
 
         // regex tested with https://regex101.com/
 
